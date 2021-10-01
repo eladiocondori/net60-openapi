@@ -1,0 +1,251 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "contact" : {
+      "name" : "O-P Tuuttila",
+      "url" : "https://github.com/optuuttila"
+    },
+    "description" : "# Introduction\nThis specification models the example domain as OpenAPI spec.\n\n# Entities\n\n## Example\n\n`Example` entity represents the example that in real-life would be some meaningful entity.\n\n## Version history\n\n| Version | Description |\n| ------- | ------------- |\n| 0.0.1   | First draft |\n",
+    "title" : "Example OpenAPI spec",
+    "version" : "0.0.1"
+  },
+  "servers" : [ {
+    "description" : "Local dev environment",
+    "url" : "http://localhost:10000"
+  } ],
+  "tags" : [ {
+    "description" : "Queries. These are read-only.",
+    "name" : "Queries"
+  }, {
+    "description" : "Commands. These are commands that change the entity state.",
+    "name" : "Commands"
+  } ],
+  "paths" : {
+    "/api/examples" : {
+      "get" : {
+        "description" : "Get all examples",
+        "operationId" : "getExamples",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ArrayOfExamples"
+                }
+              }
+            },
+            "description" : "An array of examples"
+          }
+        },
+        "summary" : "Get examples",
+        "tags" : [ "Queries" ]
+      },
+      "post" : {
+        "description" : "Create new example",
+        "operationId" : "createExample",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ExampleCreate"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Example"
+                }
+              }
+            },
+            "description" : "Example"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description" : "Example not found"
+          },
+          "409" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description" : "Example already found with given something. Only one something can exist."
+          }
+        },
+        "summary" : "Create new example",
+        "tags" : [ "Commands" ]
+      }
+    },
+    "/api/examples/{exampleId}" : {
+      "get" : {
+        "description" : "Get example with given id",
+        "operationId" : "getExampleById",
+        "parameters" : [ {
+          "description" : "Example id that is used as filter.",
+          "explode" : false,
+          "in" : "path",
+          "name" : "exampleId",
+          "required" : true,
+          "schema" : {
+            "example" : 12345678,
+            "type" : "integer"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Example"
+                }
+              }
+            },
+            "description" : "Example"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description" : "Example not found"
+          }
+        },
+        "summary" : "Get example",
+        "tags" : [ "Queries" ]
+      }
+    }
+  },
+  "components" : {
+    "parameters" : {
+      "exampleIdParam" : {
+        "description" : "Example id that is used as filter.",
+        "explode" : false,
+        "in" : "path",
+        "name" : "exampleId",
+        "required" : true,
+        "schema" : {
+          "example" : 12345678,
+          "type" : "integer"
+        },
+        "style" : "simple"
+      }
+    },
+    "schemas" : {
+      "Example" : {
+        "additionalProperties" : false,
+        "description" : "Entity that represents the `Example` structure.",
+        "properties" : {
+          "exampleId" : {
+            "description" : "Internal id",
+            "example" : 123456789,
+            "nullable" : false,
+            "type" : "integer"
+          },
+          "something" : {
+            "description" : "Important field that has to be unique",
+            "example" : "I'm something important",
+            "nullable" : false,
+            "type" : "string"
+          },
+          "else" : {
+            "description" : "Not so important field",
+            "example" : "I'm not that important",
+            "nullable" : true,
+            "type" : "string"
+          }
+        },
+        "required" : [ "exampleId", "something" ],
+        "title" : "Example (entity)",
+        "type" : "object"
+      },
+      "ExampleCreate" : {
+        "additionalProperties" : false,
+        "description" : "Model for creating a new `Example` entity.",
+        "properties" : {
+          "something" : {
+            "description" : "Important field that has to be unique",
+            "example" : "I'm something important",
+            "nullable" : false,
+            "type" : "string"
+          },
+          "else" : {
+            "description" : "Not so important field",
+            "example" : "I'm not that important",
+            "nullable" : true,
+            "type" : "string"
+          }
+        },
+        "required" : [ "something" ],
+        "title" : "Example (entity)",
+        "type" : "object"
+      },
+      "ArrayOfExamples" : {
+        "additionalProperties" : false,
+        "description" : "Array structure that returns the `Example` entity search results",
+        "properties" : {
+          "items" : {
+            "description" : "Examples",
+            "items" : {
+              "$ref" : "#/components/schemas/Example"
+            },
+            "type" : "array"
+          }
+        },
+        "title" : "Array of Examples (Example)",
+        "type" : "object"
+      },
+      "ProblemDetails" : {
+        "additionalProperties" : { },
+        "description" : "Generic error structure as defined by [Internet Standards](https://tools.ietf.org/html/rfc7807)",
+        "externalDocs" : {
+          "description" : "Internet Standards ProblemDetails",
+          "url" : "https://tools.ietf.org/html/rfc7807"
+        },
+        "properties" : {
+          "type" : {
+            "example" : "error type",
+            "nullable" : true,
+            "type" : "string"
+          },
+          "title" : {
+            "example" : "Not found",
+            "nullable" : true,
+            "type" : "string"
+          },
+          "status" : {
+            "example" : 404,
+            "format" : "int32",
+            "nullable" : true,
+            "type" : "integer"
+          },
+          "detail" : {
+            "nullable" : true,
+            "type" : "string"
+          },
+          "instance" : {
+            "nullable" : true,
+            "type" : "string"
+          }
+        },
+        "title" : "ProblemDetails (value-type)",
+        "type" : "object"
+      }
+    }
+  }
+}

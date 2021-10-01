@@ -1,0 +1,200 @@
+openapi: "3.0.2"
+info:
+  title: Example OpenAPI spec
+  version: 0.0.1
+  description: |
+    # Introduction
+    This specification models the example domain as OpenAPI spec.
+
+    # Entities
+
+    ## Example
+
+    `Example` entity represents the example that in real-life would be some meaningful entity.
+
+    ## Version history
+
+    | Version | Description |
+    | ------- | ------------- |
+    | 0.0.1   | First draft |
+
+  contact:
+    name: O-P Tuuttila
+    url: 'https://github.com/optuuttila'
+
+servers:
+- url: 'http://localhost:10000'
+  description: Local dev environment
+
+tags:
+  - name: Queries
+    description: Queries. These are read-only.
+  - name: Commands
+    description: Commands. These are commands that change the entity state.
+
+paths:
+  /api/examples:
+    get:
+      operationId: getExamples
+      description: Get all examples
+      summary: Get examples
+      tags:
+        - "Queries"
+      responses:
+        "200":
+          description: An array of examples
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArrayOfExamples"
+
+    post:
+      operationId: createExample
+      description: Create new example
+      summary: Create new example
+      tags:
+        - "Commands"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExampleCreate"
+      responses:
+        "200":
+          description: Example
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+        "404":
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+        "409":
+          description: Example already found with given something. Only one something can exist.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+  /api/examples/{exampleId}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/exampleIdParam'
+      operationId: getExampleById
+      description: Get example with given id
+      summary: Get example
+      tags:
+        - "Queries"
+      responses:
+        "200":
+          description: Example
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Example"
+        "404":
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetails"
+
+components:
+  schemas:
+    Example:
+      type: object
+      title: Example (entity)
+      description: Entity that represents the `Example` structure.
+      required:
+        - exampleId
+        - something
+      properties:
+        exampleId:
+          type: integer
+          nullable: false
+          description: Internal id
+          example: 123456789
+        something:
+          type: string
+          nullable: false
+          description: Important field that has to be unique
+          example: "I'm something important"
+        else:
+          type: string
+          nullable: true
+          description: Not so important field
+          example: "I'm not that important"
+      additionalProperties: false
+
+    ExampleCreate:
+      type: object
+      title: Example (entity)
+      description: Model for creating a new `Example` entity.
+      required:
+        - something
+      properties:
+        something:
+          type: string
+          nullable: false
+          description: Important field that has to be unique
+          example: "I'm something important"
+        else:
+          type: string
+          nullable: true
+          description: Not so important field
+          example: "I'm not that important"
+      additionalProperties: false
+
+    ArrayOfExamples:
+      type: object
+      title: Array of Examples (Example)
+      description: Array structure that returns the `Example` entity search results
+      properties:
+        items:
+          type: array
+          description: Examples
+          items:
+            $ref: "#/components/schemas/Example"
+      additionalProperties: false
+
+    ProblemDetails:
+      type: object
+      title: ProblemDetails (value-type)
+      description: Generic error structure as defined by [Internet Standards](https://tools.ietf.org/html/rfc7807)
+      externalDocs:
+        url: https://tools.ietf.org/html/rfc7807
+        description: Internet Standards ProblemDetails
+      properties:
+        type:
+          type: string
+          nullable: true
+          example: "error type"
+        title:
+          type: string
+          nullable: true
+          example: "Not found"
+        status:
+          type: integer
+          format: int32
+          nullable: true
+          example: 404
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {}
+
+  parameters:
+    exampleIdParam:
+      name: exampleId
+      in: path
+      description: Example id that is used as filter.
+      required: true
+      schema:
+        type: integer
+        example: 12345678
