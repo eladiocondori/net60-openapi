@@ -1,6 +1,8 @@
-# net60 minimal api with generated openAPI code
+# .NET 6 minimal API with generated openAPI code
 
-This repository contains net60 minimal api with generated code from OpenAPI spec.
+This repository contains [.NET 6 minimal API](https://dotnetcoretutorials.com/2021/07/16/building-minimal-apis-in-net-6/) project with generated code from OpenAPI spec.
+
+This project is used as a study to check the tooling around the .NET 6 minimalist approach combined with OpenAPI generated code and thus brings the usage a step closer to an actual enterprise level software.
 
 ## OpenAPI
 
@@ -9,6 +11,8 @@ In a true outside-in API thinking the OpenAPI specification (contract) is the so
 This contract is then used to generate the needed server side and client side code in the actual implementation of this contract.
 
 This also supports the shift-left paradigm as the design of the domain is the first thing that happens and the documentation that is used for the domain modelling is not a one-time use tool.
+
+[read more about this](https://swagger.io/blog/api-design/design-first-or-code-first-api-development/)
 
 ### Code generators
 
