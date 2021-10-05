@@ -398,3 +398,4 @@ FodyWeavers.xsd
 openapi/.generated
 openapi/csharp
 openapi/typescript
+openapi/tmp/

@@ -1,0 +1,44 @@
+{
+    "version": 1.0,
+    "tests": {
+      "contractTests": [
+        {
+          "openApiOperation": "*::/api/*",
+          "statusSuccess": {
+            "enabled": true
+          }
+        },
+        {
+          "openApiOperation": "*::/api/*",
+          "responseTime": {
+            "enabled": true,
+            "maxMs": 300
+          }
+        },
+        {
+          "openApiOperation": "*::/api/*",
+          "contentType": {
+            "enabled": true
+          }
+        },
+        {
+          "openApiOperation": "*::/api/*",
+          "jsonBody": {
+            "enabled": true
+          }
+        },
+        {
+          "openApiOperation": "*::/api/*",
+          "schemaValidation": {
+            "enabled": true
+          }
+        },
+        {
+          "openApiOperation": "*::/api/*",
+          "headersPresent": {
+            "enabled": true
+          }
+        }
+      ]
+    }
+  }

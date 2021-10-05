@@ -1,0 +1,404 @@
+{
+  "_": {
+    "postman_id": "f5e0b405-def7-4bfa-898c-716cba9f1c7d"
+  },
+  "item": [
+    {
+      "id": "72508789-2898-43d3-a4b7-7d87c4bec1bb",
+      "name": "Queries",
+      "description": {
+        "content": "Queries. These are read-only.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b93fa0d-19ae-4372-9572-47a448f72979",
+          "name": "Get examples",
+          "request": {
+            "name": "Get examples",
+            "description": {
+              "content": "Get all examples",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "examples"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "68b0f5f9-0c0e-4b99-a9bf-68790e35eee9",
+              "name": "An array of examples",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "examples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n \"items\": [\n  {\n   \"exampleId\": 123456789,\n   \"something\": \"I'm something important\",\n   \"else\": \"I'm not that important\"\n  },\n  {\n   \"exampleId\": 123456789,\n   \"something\": \"I'm something important\",\n   \"else\": \"I'm not that important\"\n  }\n ]\n}",
+              "cookie": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "35a1111f-b38f-4c88-a250-827315185af4",
+                "type": "text/javascript",
+                "exec": [
+                  "// Validate status 2xx \npm.test(\"[GET]::/api/examples - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
+                  "// Validate response time \npm.test(\"[GET]::/api/examples - Response time is less than 300ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(300);\n});\n",
+                  "// Validate if response header has matching content-type\npm.test(\"[GET]::/api/examples - Content-Type is application/json\", function () {\n   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\n});\n",
+                  "// Validate if response has JSON Body \npm.test(\"[GET]::/api/examples - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
+                  "// Response Validation\nconst schema = {\"type\":\"object\",\"title\":\"Array of Examples (Example)\",\"description\":\"Array structure that returns the `Example` entity search results\",\"properties\":{\"items\":{\"type\":\"array\",\"description\":\"Examples\",\"items\":{\"type\":\"object\",\"title\":\"Example (entity)\",\"description\":\"Entity that represents the `Example` structure.\",\"required\":[\"exampleId\",\"something\"],\"properties\":{\"exampleId\":{\"type\":\"integer\",\"nullable\":false,\"description\":\"Internal id\",\"example\":123456789},\"something\":{\"type\":\"string\",\"nullable\":false,\"description\":\"Important field that has to be unique\",\"example\":\"I'm something important\"},\"else\":{\"type\":[\"string\",\"null\"],\"description\":\"Not so important field\",\"example\":\"I'm not that important\"}},\"additionalProperties\":false}}},\"additionalProperties\":false}\n\n// Validate if response matches JSON schema \npm.test(\"[GET]::/api/examples - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\"]});\n});\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "bae3925d-5c77-41cc-9bbf-28c9a32554f3",
+          "name": "Get example",
+          "request": {
+            "name": "Get example",
+            "description": {
+              "content": "Get example with given id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "examples",
+                ":exampleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) Example id that is used as filter.",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "12345678",
+                  "key": "exampleId"
+                }
+              ]
+            },
+            "method": "GET"
+          },
+          "response": [
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "f1907b76-ebdb-4a17-8788-1308aeb62565",
+              "name": "Example",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "examples",
+                    ":exampleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "type": "any",
+                      "key": "exampleId"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n \"exampleId\": 123456789,\n \"something\": \"I'm something important\",\n \"else\": \"I'm not that important\"\n}",
+              "cookie": []
+            },
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "36b4e72c-a3b9-4944-a872-197b7582a73b",
+              "name": "Example not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "examples",
+                    ":exampleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "type": "any",
+                      "key": "exampleId"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n \"type\": \"error type\",\n \"title\": \"Not found\",\n \"status\": 404,\n \"detail\": \"fugiat voluptate velit\",\n \"instance\": \"sed\"\n}",
+              "cookie": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2ea455f5-855c-4cb9-9a86-3e82e21cd972",
+                "type": "text/javascript",
+                "exec": [
+                  "// Validate status 2xx \npm.test(\"[GET]::/api/examples/:exampleId - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
+                  "// Validate response time \npm.test(\"[GET]::/api/examples/:exampleId - Response time is less than 300ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(300);\n});\n",
+                  "// Validate if response header has matching content-type\npm.test(\"[GET]::/api/examples/:exampleId - Content-Type is application/json\", function () {\n   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\n});\n",
+                  "// Validate if response has JSON Body \npm.test(\"[GET]::/api/examples/:exampleId - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
+                  "// Response Validation\nconst schema = {\"type\":\"object\",\"title\":\"Example (entity)\",\"description\":\"Entity that represents the `Example` structure.\",\"required\":[\"exampleId\",\"something\"],\"properties\":{\"exampleId\":{\"type\":\"integer\",\"nullable\":false,\"description\":\"Internal id\",\"example\":123456789},\"something\":{\"type\":\"string\",\"nullable\":false,\"description\":\"Important field that has to be unique\",\"example\":\"I'm something important\"},\"else\":{\"type\":[\"string\",\"null\"],\"description\":\"Not so important field\",\"example\":\"I'm not that important\"}},\"additionalProperties\":false}\n\n// Validate if response matches JSON schema \npm.test(\"[GET]::/api/examples/:exampleId - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\"]});\n});\n"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "4750b0b3-bc37-4ba2-a98e-de0fe94ccfd1",
+      "name": "Commands",
+      "description": {
+        "content": "Commands. These are commands that change the entity state.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3e6d8637-c3ad-489f-9931-082c6e9061f8",
+          "name": "Create new example",
+          "request": {
+            "name": "Create new example",
+            "description": {
+              "content": "Create new example",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "examples"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"something\": \"I'm something important\",\n    \"else\": \"I'm not that important\"\n}"
+            }
+          },
+          "response": [
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "b00a2877-3512-4c88-9b7e-b4a57f02d618",
+              "name": "Example",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "examples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"something\": \"I'm something important\",\n    \"else\": \"I'm not that important\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n \"exampleId\": 123456789,\n \"something\": \"I'm something important\",\n \"else\": \"I'm not that important\"\n}",
+              "cookie": []
+            },
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "7698e012-bc06-41f7-a092-0ae41bbcf830",
+              "name": "Example not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "examples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"something\": \"I'm something important\",\n    \"else\": \"I'm not that important\"\n}"
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n \"type\": \"error type\",\n \"title\": \"Not found\",\n \"status\": 404,\n \"detail\": \"fugiat voluptate velit\",\n \"instance\": \"sed\"\n}",
+              "cookie": []
+            },
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "007af174-7b04-43f7-92f4-903eaab00e0c",
+              "name": "Example already found with given something. Only one something can exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "examples"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"something\": \"I'm something important\",\n    \"else\": \"I'm not that important\"\n}"
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n \"type\": \"error type\",\n \"title\": \"Not found\",\n \"status\": 404,\n \"detail\": \"fugiat voluptate velit\",\n \"instance\": \"sed\"\n}",
+              "cookie": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "82a361f7-3871-4fda-97da-1f25531e9a63",
+                "type": "text/javascript",
+                "exec": [
+                  "// Validate status 2xx \npm.test(\"[POST]::/api/examples - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
+                  "// Validate response time \npm.test(\"[POST]::/api/examples - Response time is less than 300ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(300);\n});\n",
+                  "// Validate if response header has matching content-type\npm.test(\"[POST]::/api/examples - Content-Type is application/json\", function () {\n   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\n});\n",
+                  "// Validate if response has JSON Body \npm.test(\"[POST]::/api/examples - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
+                  "// Response Validation\nconst schema = {\"type\":\"object\",\"title\":\"Example (entity)\",\"description\":\"Entity that represents the `Example` structure.\",\"required\":[\"exampleId\",\"something\"],\"properties\":{\"exampleId\":{\"type\":\"integer\",\"nullable\":false,\"description\":\"Internal id\",\"example\":123456789},\"something\":{\"type\":\"string\",\"nullable\":false,\"description\":\"Important field that has to be unique\",\"example\":\"I'm something important\"},\"else\":{\"type\":[\"string\",\"null\"],\"description\":\"Not so important field\",\"example\":\"I'm not that important\"}},\"additionalProperties\":false}\n\n// Validate if response matches JSON schema \npm.test(\"[POST]::/api/examples - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\"]});\n});\n"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:10000",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f5e0b405-def7-4bfa-898c-716cba9f1c7d",
+    "name": "Example OpenAPI spec",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\nThis specification models the example domain as OpenAPI spec.\n\n# Entities\n\n## Example\n\n`Example` entity represents the example that in real-life would be some meaningful entity.\n\n## Version history\n\n| Version | Description |\n| ------- | ------------- |\n| 0.0.1   | First draft |\n\n\nContact Support:\n Name: O-P Tuuttila",
+      "type": "text/plain"
+    }
+  }
+}

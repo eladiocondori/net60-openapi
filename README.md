@@ -24,8 +24,6 @@ There are several different code generators available for OpenAPI specification.
 
 For additional tooling around OpenAPI check [OpenAPI tooling](https://openapi.tools/).
 
-### Selecting code generator
-
 #### Server-side
 
 Any of these can be used in generating the initial server stub code, but the bigger question comes after that. How can we use the same generation tool to update the already implemented code with changes in the OpenAPI contract?
@@ -42,9 +40,20 @@ In similar manner pretty much any code generation tool can be used for generatin
 
 Even though I'm not using this client-side code (yet) in this project I still chose to include it in the code generation.
 
+### Test generators
+
+(Under testing, no-pun intended).
+
+Portman seems promising for generating the Postman collections from OpenAPI spec.
+
+```bash
+portman -l openapi.yaml -c portman-config.json -o example.postman.json --runNewman
+```
+
+
 ## Running the app
 
-```shell
+```bash
 cd src
 dotnet run --urls=http://localhost:10000
 ```
