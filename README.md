@@ -14,6 +14,8 @@ This also supports the shift-left paradigm as the design of the domain is the fi
 
 [read more about this](https://swagger.io/blog/api-design/design-first-or-code-first-api-development/)
 
+Tooling is important part around the OpenAPI ecosystem and following chapter covers few useful tools.
+
 ### Code generators
 
 There are several different code generators available for OpenAPI specification. Few of the more popular ones are:
@@ -50,6 +52,21 @@ Portman seems promising for generating the Postman collections from OpenAPI spec
 portman -l openapi.yaml -c portman-config.json -o example.postman.json --runNewman
 ```
 
+### Spec comparison
+
+When adding governance as part of the build pipeline having automated tool for comparing the changes between the OpenAPI spec versions will come in handy. 
+
+The most important part of the check is to ensure that backwards compatibility doesn't break.
+
+One tool that seems to do just this is [OpenAPI-Diff](https://github.com/OpenAPITools/openapi-diff).
+
+```
+git show master:openapi/openapi.yaml > openapi.old.yaml
+
+docker run --rm -t \
+  -v $(pwd):/specs:ro \
+  openapitools/openapi-diff:latest /specs/openapi.old.yaml /specs/openapi.yaml
+```
 
 ## Running the app
 

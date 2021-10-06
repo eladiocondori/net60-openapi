@@ -33,7 +33,23 @@ tags:
     description: Commands. These are commands that change the entity state.
 
 paths:
-  /api/examples:
+  /api/v2/example:
+    get:
+      operationId: getExamples
+      description: Get all examples
+      summary: Get examples
+      tags:
+        - "Queries"
+      responses:
+        "200":
+          description: An array of examples
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArrayOfExamples"
+
+
+  /api/example:
     get:
       operationId: getExamples
       description: Get all examples
