@@ -10,4 +10,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.1.5" />
 </ItemGroup>
 
+<ItemGroup>
+  <Content Update="wwwroot\swagger\v1\openapi.json">
+    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+</ItemGroup>
+
 </Project>

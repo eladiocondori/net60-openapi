@@ -65,3 +65,14 @@ Open browser to `http://localhost:10000` and visit `http://localhost:10000/swagg
 Modify the `openapi/openapi.yaml` and run `generate-code.sh / generate-code.cmd` which generates the c# code (net50 as there is no support for net60 yet) using [NSwag](https://github.com/RicoSuter/NSwag) and copies both the generated code under the app folder `src/OpenApi` as well as the converted spec (yaml to json) under `src/wwwroot/swagger/v1`.
 
 Next apply the changes you've actually done to the implementation of the spec. Do this in the classes that are under `src/Domain` folder.
+
+## Docker
+
+In case you prefer docker then please do use it.
+
+```bash
+docker build -t net60api .
+docker run --rm -d -p 10000:8040 --name myapp net60api MinApi.dll
+curl http://localhost:10000
+# Hello World! I'm example from generated OpenAPI code. Visit /swagger for the spec UI.%
+```
