@@ -35,7 +35,7 @@ tags:
 paths:
   /api/v2/example:
     get:
-      operationId: getExamples
+      operationId: getExamples2
       description: Get all examples
       summary: Get examples
       tags:
@@ -51,7 +51,7 @@ paths:
 
   /api/example:
     get:
-      operationId: getExamples
+      operationId: getExamples1
       description: Get all examples
       summary: Get examples
       tags:
