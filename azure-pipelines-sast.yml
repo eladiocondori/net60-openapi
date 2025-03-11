@@ -22,6 +22,14 @@ steps:
     SonarQube: 'CONNECTION_SONAR'
     scannerMode: 'dotnet'
     projectKey: 'FINAL'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    feedsToUse: 'select'
 - task: SonarQubeAnalyze@7
   inputs:
     jdkversion: 'JAVA_HOME_17_X64'
